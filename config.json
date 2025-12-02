@@ -1,0 +1,24 @@
+{
+    "data": {
+	"model_number": "ORP",
+	"scene": "WRTO24.2010.MELN86.jpg",
+	"Pixel_number": 80,
+	"model": "model_ORP.keras",
+	"shape": [2, 2],
+	"filetype": ".tif",
+	"separator": "_",
+	"description": "something"
+   },
+    "json_paths": {
+	"tables": "JSON_tables.json",
+	"description": "something else"
+   },
+    "csv_paths": {
+	"class_setting": "class_setting_val.csv",
+	"description": "something else"
+   },
+   "debug": {
+	"debug_level": "0",
+	"description": "Defines how much information should be printed during the run 0 to 4"
+   }
+}

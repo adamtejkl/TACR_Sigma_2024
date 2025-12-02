@@ -1,0 +1,39 @@
+# ------------------------------
+# Base image with Python
+# ------------------------------
+FROM python:3.10-slim
+
+# ------------------------------
+# System dependencies (GDAL, image libs)
+# ------------------------------
+RUN apt-get update && apt-get install -y \
+    gdal-bin libgdal-dev python3-gdal \
+    && rm -rf /var/lib/apt/lists/*
+
+# ------------------------------
+# Environment setup
+# ------------------------------
+ENV PYTHONUNBUFFERED=1 \
+    TF_CPP_MIN_LOG_LEVEL=2
+
+# ------------------------------
+# Working directory inside container
+# ------------------------------
+WORKDIR /app
+
+# ------------------------------
+# Copy your project files
+# ------------------------------
+COPY ./scripts ./scripts
+COPY ./model ./model
+COPY requirements.txt .
+
+# ------------------------------
+# Install Python packages
+# ------------------------------
+RUN pip install --no-cache-dir -r requirements.txt
+
+# ------------------------------
+# Default command when running container
+# ------------------------------
+ENTRYPOINT ["python", "scripts/run_model.py"]

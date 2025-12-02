@@ -1,0 +1,5 @@
+﻿Class;class_code_min;class_code_max;valid_code_min;valid_code_max;thresholds
+Rill;1;3999;7000;7999;20
+NoRill;4000;5999;9000;9999;20
+Rill_val;7000;7999;0;0;20
+NoRill_val;9000;9999;0;0;20
