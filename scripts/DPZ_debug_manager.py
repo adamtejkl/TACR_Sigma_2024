@@ -42,6 +42,22 @@ class Debug_Manager():
         
         
 #%%
+
+#
+##
+#
+
+    def _get_location(self):
+        """Internal helper function to get the line number and filename"""
+        frame = inspect.currentframe()
+        # step back two frames: _get_location → debug_print → caller
+        caller = frame.f_back.f_back
+        filename = caller.f_code.co_filename
+        line = caller.f_lineno
+        return filename, line
+
+
+#%%
     
     #
     ## debug printing line
@@ -63,9 +79,11 @@ class Debug_Manager():
             frame = inspect.currentframe().f_back
             func_name = frame.f_code.co_name
             line_no = frame.f_lineno
-    
-            print(f"[DEBUG-{statement_level}] {func_name} (line {line_no}): {message}", end = end)
             
+            filename, line = self._get_location()
+            location = f"[{filename}:{line}]"
+    
+            print(f"   {location} {func_name} (line {line_no}): {message}", end = end)
             
             
 #%%
@@ -85,6 +103,10 @@ class Debug_Manager():
         
         # returns the value of the key, if it does not exist throws False
         if self.debug_flags.get(flag_name, False):
+            
+            filename, line = self._get_location()
+            location = f"[{filename}:{line}]"
+            
             return action(*args, **kwargs) 
 
 
